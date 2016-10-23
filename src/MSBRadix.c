@@ -4,6 +4,27 @@
 #include <math.h>
 #include "MSBRadix.h"
 
+/******************************************************
+ *  Introduction:
+ *
+ *    This is the most significant radix sort. It uses 
+ *  the significant figures of the largest numbers to 
+ *  to even out the significant figures of other numbers
+ *  in an list/array of numbers.
+ *
+ *   Besides that, the numbers in the list/array will be 
+ *  grouped as according of the buckets - bucket0 to 
+ *  bucket9.
+ *
+ *    Once the numbers are grouped, the numbers in the 
+ *  buckets will be sorted again if the order isn't 
+ *  correct. Then, the numbers will be arranged back 
+ *  into the list/array. 
+ *
+ *    The process will keep on going until the numbers in 
+ *  the list/array are sorted to the ascending order.
+ */
+
 /***************************************
  *
  *  The purpose of this function is to 
@@ -20,10 +41,26 @@ void printList(int *list, int arrayLength){
   printf("\b\b)");
 }
 
+/*******************************************
+ *
+ *  This is to obtain the largest number in 
+ *  the array.
+ *
+ ******************************************/
+int getLargestNumber(int *list, int arrayLength){
+  int i, largestNum=INT_MIN;
+  for(i=0; i<arrayLength; i++){
+    if(list[i]>largestNum){
+      largestNum=list[i];
+    }
+  }
+  return largestNum;
+}
+
 /********************************************
  *
  *  This is to get the significant figures of
- *  the number.
+ *  the largest number.
  *
  *******************************************/
 int significantFigures(int num){
@@ -35,22 +72,6 @@ int significantFigures(int num){
   return sigFig;
 }
 
-/*******************************************
- *
- *  This is to obtain the largest number in 
- *  the array.
- *
- ******************************************/
-int getLargestNumber(int *list, int arrayLength){
-  int i, largestNum=INT_MIN;
-  for(i=0; i<arrayLength; i++){
-    if(list[i]>=largestNum){
-      largestNum=list[i];
-    }
-  }
-  return largestNum;
-}
-
 /*********************************************
  *
  *  This function is to sort the list/array
@@ -58,19 +79,30 @@ int getLargestNumber(int *list, int arrayLength){
  *
  ********************************************/
 void radixSort(int *list, int arrayLength, int sigFig){
-  // int list[] = {4, 256, 101, 20, 78, 379, 400, 7, 546};
-  // int arrayLength  = (int)(sizeof(list) / sizeof(list[0]));
-  
-  // printList(&list[0], arrayLength);
-  int i, j;
+  int i, j, k, l, m=0;
+  int bucketList[10] = {0};
   int buckets[10][arrayLength];
-  int newList[arrayLength];
-  int tempList[arrayLength];
-  
+  int temp;
+
   for(i=0; i<arrayLength; i++){
-    newList[i] = list[i]/pow(10, sigFig);
+    temp = list[i]/pow(10, sigFig);
+    for(j=0; j<arrayLength; j++){
+      if(temp == j){
+        buckets[j][bucketList[j]] = list[i];
+        bucketList[j]++;
+      }
+    }
   }
-  
-  
-  
+
+  for(k=0; k<10; k++){
+    for(l=0; l<bucketList[k]; l++){
+      list[m] = buckets[k][l];
+      m++;
+    }
+  }
+
+  sigFig--;
+  if(sigFig>=0){
+    radixSort(&list[0], arrayLength, sigFig);
+  }
 }

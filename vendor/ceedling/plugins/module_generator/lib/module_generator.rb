@@ -1,5 +1,5 @@
-require 'plugin'
-require 'constants'
+require 'ceedling/plugin'
+require 'ceedling/constants'
 require 'erb'
 require 'fileutils'
 
@@ -65,6 +65,7 @@ class ModuleGenerator < Plugin
       @ceedling[:streaminator].stdout_puts "Destroying '#{path}'..."
       @files.each do |file|
         if File.exist?(file[:path])
+          File.delete(file[:path])
           @ceedling[:streaminator].stdout_puts "File #{file[:path]} deleted"
         else
           @ceedling[:streaminator].stdout_puts "File #{file[:path]} does not exist!"
@@ -116,9 +117,9 @@ class ModuleGenerator < Plugin
     }
 
     location = File.dirname(path.gsub('\\', '/'))
-    location.sub!(/^\/?#{@context[:paths][:base]}\/?/i, '')
-    location.sub!(/^\/?#{@context[:paths][:src]}\/?/i, '')
-    location.sub!(/^\/?#{@context[:paths][:test]}\/?/i, '')
+    location.sub!(/^\/?#{Regexp.escape(@context[:paths][:base])}\/?/i, '')
+    location.sub!(/^\/?#{Regexp.escape(@context[:paths][:src])}\/?/i, '')
+    location.sub!(/^\/?#{Regexp.escape(@context[:paths][:test])}\/?/i, '')
     
     @context[:location] = location
 
