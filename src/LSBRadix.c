@@ -21,10 +21,15 @@ int findLargestNumber(int *array, int arrayLength){
 int findSignificantFigures(int number){
   int significantFigures=0;
   
-  while(number>=10){
-    number = number/10;
+  while(number != 0){
+    number = number / 10;
     significantFigures++;
   }
   
   return significantFigures;
 }
+
+int lsbRadixSort(int *array, int arrayLength, significantFigures){
+  
+}
+
