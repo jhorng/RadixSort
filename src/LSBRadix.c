@@ -74,7 +74,7 @@ int findSignificantFigures(int number){
  *  Return  : {1, 3, 4, 5, 7, 8, 9}
  *
  ****************************************************/
-int lsbRadixSort(int *array, int arrayLength, int significantFigures, int counter) // counter is always passed as one for looping purpose as well as identifying the digit of each numbers.
+void lsbRadixSort(int *array, int arrayLength, int significantFigures, int counter) // counter is always passed as one for looping purpose as well as identifying the digit of each numbers.
 {
   int i, j, numberHolder;
   int digit=0, k=0;
@@ -105,7 +105,7 @@ int lsbRadixSort(int *array, int arrayLength, int significantFigures, int counte
   significantFigures--;
   counter++;
   if(significantFigures>=0){
-    lsbRadixSort(&array[0], arrayLength, significantFigures, counter);
+    _lsbRadixSort(&array[0], arrayLength, significantFigures, counter);
   }   
 }
 

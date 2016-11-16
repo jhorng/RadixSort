@@ -4,6 +4,8 @@
 void printList(int *list, int arrayLength);
 int findLargestNumber(int *array, int arrayLength);
 int findSignificantFigures(int largestNumber);
-int lsbRadixSort(int *array, int arrayLength, int significantFigures, int counter);
+void lsbRadixSort(int *array, int arrayLength, int significantFigures, int counter);
+
+#include "LSBRadixSortStub.h"
 
 #endif // LSBRadix_H
