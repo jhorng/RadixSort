@@ -38,11 +38,7 @@ void test_array_of_random_numbers_get_sorted_by_LSBRadixSort(void){
   largestNumber = findLargestNumber((int *)arr1, arrLength);
   significantFigures = findSignificantFigures(largestNumber);
   
-  printf("Before: ");
-  printList((int *)arr1, arrLength);
   lsbRadixSort((int *)arr1, arrLength, significantFigures, counter);
-  printf("\nAfter: ");
-  printList((int *)arr1, arrLength);
   
   TEST_ASSERT_EQUAL(3, arr1[0]);
   TEST_ASSERT_EQUAL(11, arr1[1]);
@@ -61,11 +57,7 @@ void test_array_of_random_numbers_with_equivalent_significant_figures_get_sorted
   largestNumber = findLargestNumber((int *)arr1, arrLength);
   significantFigures = findSignificantFigures(largestNumber);
   
-  printf("Before: ");
-  printList((int *)arr1, arrLength);
   lsbRadixSort((int *)arr1, arrLength, significantFigures, counter);
-  printf("\nAfter: ");
-  printList((int *)arr1, arrLength);
   
   TEST_ASSERT_EQUAL(156, arr1[0]);
   TEST_ASSERT_EQUAL(211, arr1[1]);

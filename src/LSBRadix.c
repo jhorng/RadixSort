@@ -4,22 +4,6 @@
 #include <limits.h>
 #include "LSBRadix.h"
 
-/**********************************
- *
- *  This function is to print out
- *  any 1D-array that is passed to
- *  this function as an argument.
- *
- **********************************/
-void printList(int *list, int arrayLength){
-  int i;
-  printf("(");
-  for(i=0; i<arrayLength; i++){
-    printf("%d, ", *list++);
-  }
-  printf("\b\b)");
-}
-
 /**************************************** 
  *
  *  This function is to find the largest 
@@ -80,6 +64,20 @@ void lsbRadixSort(int *array, int arrayLength, int significantFigures, int count
   int digit=0, k=0;
   int bucket[10][10];
   int bucketElement[10] = {0}; // To record the total numbers inside each buckets in array form.
+  
+  // This loop is to check the existance of negative values of a element in an array.
+  // If there is a negative value, the radix sort will stop immediately.
+  for(i=0; i<arrayLength; i++){
+    if(array[i] < 0){
+      printf("Negative value exists in the array\n");
+      return;
+    }
+    else{
+      printf("%d ", array[i]);
+    }
+  }
+  
+  printf("\n");
   
   // Every numbers will be split to determine the digit numbers.
   // The digit will be used to determine the particular bucket to store 
